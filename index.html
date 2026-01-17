@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>明星介绍网站模板</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- 字体 & 图标 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0f0f14;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ====== 顶部导航 ====== */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 64px;
+      backdrop-filter: bleu(10px);
+      background: rgba(0,0,0,.45);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      z-index: 1000;
+    }
+
+    .logo { font-weight: 700; letter-spacing: 2px; }
+
+ nav a {
+  margin-left: 24px;
+  opacity: .8;
+  display: inline-block;
+
+  /* 平滑动画 */
+  transition: transform .25s ease, opacity .25s ease;
+
+  /* 放大中心点 */
+  transform-origin: center;
+}
+
+nav a:hover {
+  opacity: 1;
+
+  /* 放大效果 */
+  transform: scale(1.25);
+}
+
+    
+
+    nav a:hover { opacity: 1; }
+
+    /* ====== Hero 区 ====== */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: url("file:///C:/Users/zhouz/Pictures/JJ45.jpg.png") center / cover no-repeat;
+      overflow: hidden;
+    }
+	
+	.hero {
+  animation: heroZoom 1.6s ease-out forwards;
+}
+
+@keyframes heroZoom {
+  from {
+    transform: scale(1.15);
+    filter: blur(6px);
+  }
+  to {
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+
+    .hero-content {
+      text-align: center;
+      animation: fadeUp 1.5s ease;
+    }
+
+    .hero h1 { font-size: 64px; margin-bottom: 16px; }
+    .hero p { opacity: .8; }
+
+    /* 背景光效 */
+    .glow {
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(120,100,255,.5), transparent 60%);
+      filter: blur(60px);
+      animation: float 10s infinite alternate;
+    }
+
+    .glow.one { top: 10%; left: 10%; }
+    .glow.two { bottom: 10%; right: 10%; animation-delay: 2s; }
+
+    /* ====== 通用区块 ====== */
+    section {
+      padding: 120px 6%;
+    }
+
+    h2 {
+      font-size: 42px; 
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    /* ====== 图片轮播 ====== */
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform .6s ease;
+    }
+
+    .carousel img {
+      width: 100%;
+      flex-shrink: 0;
+      height: 420px;
+      object-fit: cover;      /* 自动裁剪填满，不拉伸 */
+      object-position: center; /* 居中显示 */
+      cursor: zoom-in;         /* 提示可点击放大 */
+    }
+
+    .carousel button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,.5);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      width: 48px; height: 48px;
+      cursor: pointer;
+    }
+
+    .carousel .prev { left: 10px; }
+    .carousel .next { right: 10px; }
+
+    /* ====== 视频区 ====== */
+    .video-box {
+      display: flex;
+      justify-content: center;
+    }
+
+    video {
+      width: 80%;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.6);
+    }
+
+    /* ====== 音乐播放器 ====== */
+    .player {
+      max-width: 420px;
+      margin: auto;
+      background: transparent;   /* 去掉灰色 */
+      border-radius: 0;
+      padding: 0;
+      backdrop-filter: none;
+      text-align: center;
+
+    }
+
+    .player button {
+      margin-top: 12px;
+      padding: 10px 24px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* ====== 动画 ====== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      from { transform: translateY(0px); }
+      to { transform: translateY(-80px); }
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      opacity: .5;
+    }
+  /* ===== 图片放大弹层 ===== */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      animation: fadeUp .3s ease;
+    }
+	
+	.carousel img.portrait {
+      object-fit: contain;     /* 不裁剪，完整显示 */
+    }
+
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.8);
+      cursor: zoom-out;
+    }
+	/* ===== 人物资料区 ===== */
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+  gap: 24px;
+  background: rgba(255,255,255,.04);
+  padding: 32px;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+}
+
+.profile-item {
+  font-size: 14px;
+  line-height: 1.8;
+  opacity: .9;
+}
+
+.profile-item span {
+  opacity: .6;
+}
+
+/* ===== 时间轴 ===== */
+.timeline {
+  position: relative;
+  max-width: 900px;
+  margin: auto;
+}
+
+.timeline::before {
+  content:'';
+  position:absolute;
+  left:20px;
+  top:0;
+  bottom:0;
+  width:2px;
+  background: rgba(255,255,255,.2);
+}
+
+.timeline-item {
+  display:flex;
+  gap:20px;
+  margin-bottom:40px;
+}
+
+.timeline-dot {
+  width:12px;
+  height:12px;
+  background:#9fa8ff;
+  border-radius:50%;
+  margin-top:6px;
+  flex-shrink:0;
+}
+
+.timeline-content {
+  background: rgba(255,255,255,.05);
+  padding:20px 24px;
+  border-radius:12px;
+}
+
+.timeline-content h4 {
+  margin-bottom:6px;
+}
+
+.timeline-content p {
+  opacity:.8;
+  line-height:1.7;
+}
+
+/* ===== 早年经历 ===== */
+.story-box {
+  max-width: 1000px;
+  margin: auto;
+  background: rgba(255,255,255,.04);
+  padding: 40px;
+  border-radius: 20px;
+  line-height: 1.9;
+  opacity: .9;
+}
+
+
+/* 介绍文字段落间距 */
+.about-text p {
+  margin-bottom: 22px;   /* 每一段之间的间距 */
+  line-height: 1.9;      /* 行高，更舒服 */
+}
+
+/* 标题和第一段的间距 */
+.about-text h3 {
+  margin-bottom: 26px;
+}
+
+/* ===== 手机和平板适配 ===== */
+@media (max-width: 900px) {
+
+  header {
+    padding: 0 16px;
+  }
+
+  nav a {
+    margin-left: 12px;
+    font-size: 14px;
+  }
+
+  section {
+    padding: 80px 6%;
+  }
+
+  /* 首页文字缩小 */
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+
+  /* 轮播图高度自适应 */
+  .carousel img {
+    height: 260px;
+  }
+
+  /* 视频全宽 */
+  video {
+    width: 100%;
+  }
+
+  /* 基本信息网格更紧凑 */
+  .profile-grid {
+    grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
+    padding: 20px;
+  }
+
+  /* 时间轴优化 */
+  .timeline {
+    padding-left: 10px;
+  }
+
+  .timeline::before {
+    left: 6px;
+  }
+
+  .timeline-item {
+    gap: 12px;
+  }
+
+  /* 早年经历内边距缩小 */
+  .story-box {
+    padding: 24px;
+  }
+}
+
+/* 超小屏手机再优化 */
+@media (max-width: 480px) {
+
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  h2 {
+    font-size: 26px;
+  }
+
+  nav a {
+    font-size: 12px;
+  }
+
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+
+.glow-title {
+  text-shadow: 0 0 20px rgba(140,120,255,.9);
+  animation: glowPulse 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulse {
+  from {
+    text-shadow: 0 0 10px rgba(140,120,255,.6);
+  }
+  to {
+    text-shadow: 0 0 40px rgba(160,140,255,1);
+  }
+}
+
+/* 首页内容初始隐藏 */
+.hero-content h1,
+.hero-content p,
+.hero-btns {
+  opacity: 0;
+}
+
+/* 主标题入场动画 */
+.glow-title {
+  animation: titleIn 1.6s ease forwards;
+  animation-delay: 0.8s;   /* 延迟出现 */
+}
+
+@keyframes titleIn {
+  0% {
+    opacity: 0;
+    transform: scale(2) translateY(40px);
+    filter: blur(12px);
+    text-shadow: 0 0 0 rgba(140,120,255,0);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(0.95) translateY(-6px);
+    filter: blur(2px);
+    text-shadow: 0 0 30px rgba(160,140,255,.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+    text-shadow: 0 0 40px rgba(180,160,255,1);
+  }
+}
+
+/* 副标题渐显 */
+.subtitle {
+  animation: fadeIn 1.2s ease forwards;
+  animation-delay: 2.2s;
+}
+
+/* 按钮弹出 */
+.hero-btns {
+  animation: btnIn 1.2s ease forwards;
+  animation-delay: 2.8s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes btnIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ===== 音乐封面图 ===== */
+.cover {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin: 0 auto 18px;
+  display: block;
+  box-shadow: 0 0 30px rgba(140,120,255,.6);
+  transition: transform .4s ease;
+}
+
+/* 悬停微放大 */
+.cover:hover {
+  transform: scale(1.06);
+}
+
+/* ===== 高级播放按钮 ===== */
+.play-btn {
+  margin-top: 18px;
+  padding: 12px 34px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+
+  color: #fff;
+  background: linear-gradient(135deg, #7f5cff, #00d4ff);
+  box-shadow: 0 0 18px rgba(120,120,255,.6);
+
+  transition: all .3s ease;
+}
+
+/* 悬停发光 */
+.play-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 28px rgba(120,120,255,.9);
+}
+
+/* 点击按压 */
+.play-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 10px rgba(120,120,255,.5);
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+/* ===== 图文左右布局（插图专用） ===== */
+.img-text {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  margin: 80px 0;
+}
+
+.img-text img {
+  width: 42%;
+  height: 420px;              
+  object-fit: cover;        
+  object-position: center;
+  background: #000;  
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0,0,0,.5);
+  transition: transform .4s ease;
+}
+
+
+/* 图片轻微放大 */
+.img-text img:hover {
+  transform: scale(1.05);
+}
+
+.img-text .text {
+  width: 58%;
+  line-height: 1.9;
+}
+
+/* 图片在右 */
+.img-text.right {
+  flex-direction: row-reverse;
+}
+
+/* 手机自适应 */
+@media (max-width: 900px) {
+  .img-text {
+    flex-direction: column;
+  }
+
+  .img-text img,
+  .img-text .text {
+    width: 100%;
+  }
+}
+
+
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">STAR</div>
+  <nav>
+    <a href="#home">首页</a>
+    <a href="#about">介绍</a>
+    <a href="#gallery">相册</a>
+    <a href="#video">视频</a>
+    <a href="#music">音乐</a>
+  </nav>
+</header>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+
+  <div class="hero-content">
+  <h1 class="glow-title">林俊杰</h1>
+  <p class="subtitle">JJ Lin · 华语流行天王 · 音乐制作人</p>
+
+  <div class="hero-btns">
+    <a href="#music">🎧 听音乐</a>
+    <a href="#gallery">📸 看相册</a>
+  </div>
+</div>
+
+</section>
+
+<!-- 个人介绍 -->
+<section id="about">
+  <h2>介绍</h2>
+  <div class="about-box">
+    <div class="about-text">
+    <section id="profile">
+	 <h3 style="color:#1e3a8a;">林俊杰 JJ Lin</h3>
+	 
+	 <p>林俊傑（英語：Wayne Lim Jun Jie，藝名：JJ Lin；1981年3月27日—），新加坡華裔歌手、詞曲作家、音樂製作人，被誉为“行走的CD”，
+	 出道至今已舉辦逾两百場世界巡回演唱會。
+	 曾拿下金曲獎最佳新人獎以及兩屆金曲獎最佳男歌手。2003年，發行首張創作專輯《樂行者》，
+	 之後憑藉2004年的專輯《第二天堂》中〈江南〉一曲成名，隨後的〈小酒窩〉、〈曹操〉、〈她說〉等歌曲亦造成迴響。2014年，
+	 以專輯《因你而在》獲得第25屆金曲獎最佳國語男歌手獎。2016年，
+	 再以專輯《和自己對話》奪得第27屆金曲獎最佳國語男歌手獎及演唱類最佳作曲人獎。</p>
+     
+	 <h3 style="color:#1e3a8a;">早年生活及教育</h3>
+	 
+	 <p>林俊傑於1981年3月27日生於新加坡，其祖先出身福建廈門同安，後移居小金門，
+	 曾祖母則是來自安溪。他有一個哥哥，在中學時期曾經一起組樂團「The Gents」，
+	 後來也在專輯《因你而在》中合作〈飛機〉。林俊傑曾就讀於靜山小學、英华自主中学、
+	 圣安德烈初级学院。1999年，他在海蝶唱片举办的 “非常歌手训练班”中脱颖而出，
+	 从而放棄就讀新加坡國立大學的機會，與海蝶唱片簽下合約。随之在完成兵役后，正式出道。</p>
+	 
+	 <h3 style="color:#1e3a8a;">演藝生涯</h3>
+	 
+	  <h4 style="color:#800080;">2003年-2010年: 海蝶时期</h4>
+	  <div class="img-text right">
+  <img src="file:///C:/Users/zhouz/Pictures/1hj.jpg" alt="获奖照">
+  <div class="text"> 
+  <p>2003年4月10日，發行首張录音室專輯《樂行者》，專輯名稱寓意「在音樂世界裡悠然行走的人」。收录的11首歌曲皆由林俊杰作曲，
+  不仅囊括了时下颇受欢迎的R&B和节奏感强烈的舞曲，还融入豐富多元的音乐风格。该专辑在全亚洲销量超过120万张，林俊杰凭此专辑获得第15屆金曲獎「最佳演唱新人獎」。
+
+2004年6月4日，发行第2張录音室專輯《第二天堂》，不仅包辦全部作曲、还进一步参与了部分编曲及制作，主打歌〈江南〉入圍第16屆金曲獎「最佳作曲人獎」，
+
+
+更成為林俊傑歌唱事業的代表作。该专辑在全亚洲销量超过180万张。同年8月9日，受邀参加新加坡國慶慶典，與陳潔儀合作演唱主題曲《家》。</p>
+  </div>
+</div>
+
+<p>
+
+2005年4月1日，發行第3张录音室专辑《編號89757》，创作概念以一个來自3005年的未來戰士的视角去關注現今世界，林俊杰在这张专辑中首度填词国语歌词。该专辑在全亚洲销量超过150万张，林俊杰凭借这张专辑获得第12届新加坡金曲獎「最佳演繹男歌手」、「最佳本地男歌手」、「最佳創作歌手」、「最佳本地作曲」四項大獎。
+
+2006年2月17日，發行第4張录音室专辑《曹操》，專輯精神來自历史人物曹操，林俊杰形容称希望能够用音乐征服所有人的耳朵。该专辑在全亚洲实体銷售超过200万张，林俊杰也凭借此专辑首度提名金曲獎「最佳國語男歌手獎」。同年6月10日，首次个人巡演「就是俊傑世界巡迴演唱會」於上海虹口足球场开启，随之在新加坡、馬來西亞、武漢、天津、台北相繼開唱；次年10月14日，再度回到上海举办安可最终场。
+
+2007年3月27日，成立音乐制作公司「就是俊傑音樂」，負責單曲及專輯製作。6月29日，發行第5張录音室专辑《西界》，整张专辑的音乐走向由林俊杰主导，并突破尺度变身视觉系艺人；7月22日，在天津的簽售會上，更以2小時28分09秒簽完3052張專輯的成績刷新吉尼斯世界纪录。林俊杰也凭借此专辑再度夺得第13届新加坡金曲奖「最佳本地男歌手奖」。
+
+2008年1月13日，首次主演的電視劇《原來我不帥》播出，剧中饰演男主角「小庄」。8月6日，擔任2008年北京奧運會火炬手，在天安門路段傳遞火炬。10月18日，發行第6張录音室专辑《JJ陸》，其中與蔡卓妍合唱的歌曲〈小酒窩〉廣為傳唱，也使其成功在香港市場佔有一席之地。
+
+2009年3月28日，第二次巡演“傑伴2009世界巡迴演唱會”在新加坡室内体育馆开始；并于6月在北京举办，而后因为林俊杰声带受损，巡演被迫中断。7月9日，獲頒新加坡傑出青年獎。12月18日，發行第7張录音室专辑《100天》。
+
+2010年8月14日，擔任新加坡青年奧運火炬手。8月21日，第三次巡演“I AM世界巡迴演唱會 ”在北京首都体育馆开始，并于2011年4月1日、2日在台北小巨蛋结束，共巡回演出11场。12月8日，發行第8張录音室专辑《她说 概念自选辑》，精选10首其出道以来写给其他女歌手的歌曲，进行重新演绎。</p>
+	 
+	 <h4 style="color:#800080;">2011年-2021年: 華納时期</h4>
+	 
+	 	<div class="img-text right">
+  <img src="file:///C:/Users/zhouz/Pictures/3heyi.jpg" alt="海纳">
+  <div class="text"> 
+  <p>2011年8月8日，簽約華納音樂。9月30日，由其首次擔任音樂總監的電影《夏日樂悠悠》于中国大陆上映。12月31日，發行第9張录音室专辑《學不會》。
+
+2012年3月27日，推出首本個人故事影像书《記得》。
+
+2013年3月13日，發行第10張录音室专辑《因你而在》，並將其中收录曲〈修煉愛情〉拍成動畫微電影，以獻給在勝安航空185號班機上遭遇空難的一位女性友人。7月13日、14日，“時線Timeline世界巡迴演唱會”從台北小巨蛋起跑，并在一年半内巡回演出25场，最终于2015年1月10日在青岛收官。
+
+2014年6月28日，憑藉專輯《因你而在》，獲得第25屆金曲獎最佳國語男歌手獎。7月18日，首張英文翻唱迷你專輯《iTunes Session》推出。12月27日，發行第11張录音室专辑《新地球》，專輯發行僅5天，便史無前例成為台灣五大金榜的年度銷售冠軍，更榮登美國告示牌世界專輯排行榜第10名。
+</p>
+  </div>
+</div>
+<p>
+ 
+2015年2月14日、15日，“時線：新地球世界巡迴演唱會安可場”再度从台北小巨蛋起跑，并在一年内巡回演出17场，最终于12月19日在高雄巨蛋落下帷幕。8月9日，出席新加坡50周年国庆庆典并献唱主题曲〈Our Singapore〉。12月25日，發行第12張录音室专辑《和自己對話》，该专辑採用「人頭錄音」技術，
+創下流行樂壇先例，亦是其首張實驗專輯。
+
+2016年1月15日，首次參演的電影《消失的愛人》于中国大陆上映。6月25日，憑藉第12張個人專輯《和自己對話》及其主打單曲《不為誰而作的歌》，獲得第27屆金曲獎最佳國語男歌手獎和最佳作曲人奖。7月7日，首部个人音乐纪实电影《聽·見 林俊傑》于數位平台上架。11月4日，
+以常驻导师身份加盟的浙江卫视音乐节目《梦想的声音》开播。
+
+2017年1月27日，二度登上央视春晚，和李玟合唱歌曲〈梦想之城〉。4月20日，攜手騰訊休閒手遊《天天愛消除》推出虛擬偶像樂團「消除聯萌」。4月23日，歌曲〈不為誰而作的歌〉MV在YouTube達到1億次觀看次數，成為少數破億的華語MV。6月3日，加盟浙江卫视女团真人秀节目《天生是优我》，
+担任音乐总监[63]。10月27日，二度担任常驻导师的浙江卫视音乐节目《梦想的声音2》开播。11月25日，首度踏上金馬舞台，擔任《第54屆金馬獎頒獎典禮》表演嘉賓。12月16日，歌曲〈修煉愛情〉MV在YouTube亦達到1億次觀看次數，成為華語歌壇中首位擁有兩首破億歌曲的歌手。12月29日，
+發行第13張录音室专辑《伟大的渺小》。
+
+
+<div class="img-text right">
+  <img src="file:///C:/Users/zhouz/Pictures/WD,jpdg.jpg" alt="伟大的渺小">
+  <div class="text"> 
+  <p>2018年1月26日，与路易斯·馮西跨國合唱的世界神曲〈Despacito〉中文版〈缓缓〉上線。2月3日，舉辦“《偉大的渺小》線上新歌演唱會”，透過全球33個直播平台播出。3月17日、18日，“聖所世界巡迴演唱會”從上海起航，該巡演由西洋音樂教父大衛·佛斯特担任联合音乐总监，
+並由電影配樂大師漢斯·季默量身打造演唱會開場曲，
+格調十足。5月16日，憑專輯《偉大的渺小》入圍第29屆金曲獎最佳男歌手等6項大獎。10月26日，三度担任常駐导师的浙江卫视音乐節目《梦想的声音3》开播。
+
+2019年3月11日，“聖所世界巡迴演唱會”在墨爾本收官。3月23日，“聖所2.0世界巡迴演唱會”在杭州正式起航。12月21、22日，“聖所2.0世界巡迴演唱會”在新加坡國家體育場上演，
+林俊傑也成為首位於新加坡國家體育場連唱兩天的華人歌手，而后续的场次皆因2019冠状病毒病疫情而取消，巡演被迫中断，共演出66场，动员超过160万观众。
+
+2020年1月28日，單曲〈Stay With You〉MV释出，該歌曲是其攜手孫燕姿為了向防疫前線人員致敬而创作。10月20日，發行第14張录音室专辑《倖存者·如你》，專輯以「雙維度EP」概念貫穿，而本次率先發行了維度一《倖存者 Drifter》EP。10月30日，
+舉辦《倖存者·如你》線上新歌首唱LIVE。12月22日，推出爵士EP《感爵这一刻 Just Jazzin’》，
+將兩首膾炙人口的經典歌曲〈修煉愛情〉及〈偉大的渺小〉改編為爵士曲風。
+
+</p>
+  </div>
+</div>
+2021年1月6日，林俊傑開啓直播系列節目《JJ的咖啡調調》，借由咖啡和唱歌的形式與粉絲朋友們互動分享。3月28日，概念雙EP《倖存者·如你》中的全英文EP《Like You Do 如你》發行[80]，其中收錄歌曲〈Bedroom〉邀請英國女歌手安-瑪莉跨海合唱[81]。4月28日，
+林俊傑與好萊塢經紀公司UTA簽約，正式闖蕩歐美市場。5月3日，
+林俊傑在《夢想的聲音2》中翻唱的歌曲〈輸了你贏了世界又如何〉於YouTube的观看次数突破1亿次，成為華語樂壇首位Live翻唱突破1億的歌手[82]。7月10日，《圣所FINALE》终点站线上演唱会正式與全球观众见面，為「聖所」系列巡演劃下圓滿句號。
+</p>	 
+	<h4 style="color:#800080;">2022年至今: 自立门户</h4>
+	
+	<div class="img-text right">
+  <img src="file:///C:/Users/zhouz/Pictures/wuju.jpg" alt="生活照">
+  <div class="text"> 
+  <p>2022年8月19日，发行为网游《永劫无间》打造的一周年主题曲〈无拘〉。9月15日，发行为游戏《RO仙境傳說：愛如初見》打造的主题曲〈那些你很冒险的梦 (JJ20版)〉。11月4日至5日，
+	出道20周年巡演「JJ20世界巡迴演唱會」从新加坡国家体育场启航，随后在台北、吉隆坡举办。12月23日，发行现场录音专辑《JJ的咖啡调调, Vol. 1》，收录其在《JJ的咖啡調調》節目演唱的曲目。12月24日，
+	举办“咖啡調調”暖冬限定版音樂會，并同步发行《JJ的咖啡调调, Vol. 2》，其個人長線直播節目《JJ的咖啡調調》告一段落。</p>
+  </div>
+</div>
+	<p>
+
+2023年1月28日，「JJ20世界巡回演唱会」登陸北美開唱，而後陸續於全球多個城市舉辦，因觀眾反應熱烈而頻頻售罄至加場，締造諸多票房佳績。
+其中，9月22日至25日，连续三晚唱响北京「鸟巢」国家体育场，累积18万观眾进场，创下个人出道20年新纪录。4月7日，
+发行和安德森·帕克合唱的华美银行纪录片《The Bridge》主题曲〈In The Joy〉。4月21日，發行第15張录音室专辑《重拾 快樂》，专辑以“找回快乐”为主轴，反映了他对生命过程中快乐与痛楚的感悟，
+专辑视觉特别邀请艺术家简明量身打造。该专辑在中国大陆发行数字版本，销量超过90万张，为2023年度销量最高的专辑。在台湾发行的实体也成为五大唱片2023年度销售冠军。5月26日，发行和史蒂夫·青木合作的歌曲〈The Show〉。
+
+<br><br><br><br><br>
+
+2024年2月16日，受邀担任艾德·希兰新加坡演唱会嘉宾，合作演唱〈不为谁而作的歌〉。4月22日，发行和动力火车合作新歌〈俯冲的灵魂〉。
+7月20日，发行为网游《无畏契约》演唱的中国大陆地区上线一周年献礼曲〈绝不绝〉。11月1日至3日，「JJ20世界巡回演唱会」在重庆市奥林匹克体育中心体育场圆满收官，
+历时两年，巡回40个城市，演出77场，累计动员260万观众。11月21日，推出首部个人传记书籍《超越音符：林俊杰20周年》，全书以三幕剧的形式再现他的过去、现在与未来，分享出道20周年点滴。
+上市一周销售额超过3800万元人民币[100]。11月7日，林俊杰火速回归，宣布启动「JJ20」的延伸巡演「JJ20 FINAL LAP世界巡回演唱会」，首站于2024年12月28日至29日在新加坡国家体育场举行。12月24日，
+发行「JJ20 FINAL LAP世界巡回演唱会」中英文双版本主题曲〈光阴副本〉和〈Turn Of A Page〉。
+
+<br><br><br><br><br>
+
+2025年2月8日，林俊杰再度迈向全世界，「JJ20 FINAL LAP世界巡回演唱会」在北美洲开启，随后前往欧洲、大洋洲及亚洲多个城市开唱。
+最终站于2025年6月27日至7月13日期间在北京国家体育场举行，連續3週共9場演出，吸引超過50萬人次，刷新個人單一場館觀眾紀錄。
+7月6日，发行和A-Lin合唱的單曲〈在月蝕裡抱緊我〉。8月29日，发行和成龙合唱的單曲〈Skibidi〉。9月15日，发行为电影《他年她日》演唱的主题曲〈瞬间的瞬间〉。10月9日，
+发行为手游《王者荣耀》十周年版本打造的主题曲〈明日坐标〉。</p>
+
+	<h4 style="color:#800080;">副業</h4>
+	
+	<p>除音樂領域外，林俊傑亦多元發展。2009年12月，他創立品牌「SMG」，開始進軍潮流服飾行業。2016年6月份，他考取了國際汽車聯盟證照，
+	成為職業賽車手。2017年，成立職業電子競技隊伍SMG戰隊，主要參與傳說對決的賽事，並在2017年11月26日獲得AIC傳說對決世界冠軍。
+	同年12月，於臺北市開設Miracle Coffee，2022年，Miracle Coffee擴展到新加坡建立分店，2023年，Miracle Coffee擴展到中国大陆，
+	目前共拥有11家营业门市。除此之外，林俊杰还于2022年7月与新加坡企业家Kiat Lim和 Elroy Cheo合作，共同创立了NFT社区「ARC」。</p>
+	
+	<h4 style="color:#800080;">个人生活</h4>
+	
+	<p>2009年初，林俊杰因密集演出及作息不规律，导致胃酸倒流，出现失声、咳血等状况。
+	受此影响，他的个人巡演及其他演出被迫中断。随后在经过约百天的静养后身体逐渐恢复，
+	这一经历也成为其专辑《100天》的灵感来源。
+
+   2025年7月13日，林俊杰在北京鸟巢举办的「JJ20 FINAL LAP」世界巡演最终场中透露，
+   自己于2024年4月被诊断出心脏问题，每天要靠药物控制。尽管如此，他自确诊后仍完成逾50场世界巡回演唱会，
+   演艺事业亦未受到明显影响。</p>
+	
+   <h2>基本信息</h2>
+
+  <div class="profile-grid">
+    <div class="profile-item"><span>本名：</span>林俊杰</div>
+    <div class="profile-item"><span>艺名：</span>JJ Lin</div>
+    <div class="profile-item"><span>英文名：</span>Wayne / Lim Junjie</div>
+    <div class="profile-item"><span>昵称：</span>林三岁、老林</div>
+
+    <div class="profile-item"><span>性别：</span>男</div>
+    <div class="profile-item"><span>国籍：</span>新加坡</div>
+    <div class="profile-item"><span>出生地：</span>新加坡</div>
+    <div class="profile-item"><span>出生日期：</span>1981年3月27日</div>
+
+    <div class="profile-item"><span>星座：</span>白羊座</div>
+    <div class="profile-item"><span>血型：</span>O型</div>
+    <div class="profile-item"><span>身高：</span>173 cm</div>
+    <div class="profile-item"><span>体重：</span>61 kg</div>
+
+    <div class="profile-item"><span>毕业院校：</span>St Andrews Junior College</div>
+    <div class="profile-item"><span>职业：</span>歌手、音乐人、演员、潮牌主理人</div>
+    <div class="profile-item"><span>音乐类型：</span>流行、R&B、电子、中国风</div>
+    <div class="profile-item"><span>经纪公司：</span>JFJ Productions、UTA</div>
+
+    <div class="profile-item"><span>粉丝名：</span>JM</div>
+    <div class="profile-item"><span>祖籍：</span>福建省厦门市同安区</div>
+  </div>
+  <!-- 音乐作品 -->
+<section id="works">
+
+ <h2>早年经历</h2>
+
+  <div class="story-box">
+    <p>
+      林俊杰出生于新加坡的音乐家庭，自幼在父母的引导下开始学习古典钢琴，
+      持续练习长达12年。虽然小时候性格内向，也曾对练琴产生抵触情绪，
+      但音乐逐渐成为他表达自我的重要方式。
+    </p>
+
+    <p>
+      在接触流行音乐后，他开始尝试作曲创作，并参加各类歌唱比赛，
+      多次获得奖项。17岁时受到音乐作品的启发，创作了人生第一首原创歌曲，
+      逐渐坚定了走音乐道路的决心。
+    </p>
+
+    <p>
+      1999年被唱片公司发掘后，进入系统训练阶段，随后正式签约，
+      开启了职业音乐创作生涯，为之后的成功奠定了坚实基础。
+    </p>
+  </div>
+</section>
+
+  </div>
+
+
+  <h2>音乐作品</h2>
+
+  <div class="story-box">
+    <h3 style="color:#1e3a8a; margin-bottom:20px;">林俊杰音乐作品列表</h3>
+
+    <ul style="line-height:2; opacity:.9; list-style: disc; padding-left: 20px;">
+      <li>《乐行者》（Music Voyager）— 2003年</li>
+      <li>《第二天堂》（The JJ Haven）— 2004年</li>
+      <li>《编号89757》（No.89757）— 2005年</li>
+      <li>《曹操》（Cao Cao）— 2006年</li>
+      <li>《西界》（West Side）— 2007年</li>
+      <li>《JJ陆》（Sixology）— 2008年</li>
+      <li>《100天》（Hundred Days）— 2009年</li>
+      <li>《她说 概念自选辑》（She Says）— 2010年</li>
+      <li>《学不会》（Lost N Found）— 2011年</li>
+      <li>《因你而在》（Stories Untold）— 2013年</li>
+      <li>《新地球》（Genesis）— 2014年</li>
+      <li>《和自己对话》（From M.E. To Myself）— 2015年</li>
+      <li>《伟大的渺小》（Message in a Bottle）— 2017年</li>
+      <li>《幸存者 · 如你》（Drifter · Like You Do）— 2020年</li>
+      <li>《重拾·快乐》（Happily, Painfully After）— 2023年</li>
+    </ul>
+  </div>
+</section>
+
+</section>
+     <section id="timeline">
+  <h2>大事记</h2>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h4>1981年3月27日 · 出生于新加坡</h4>
+        <p>出生于新加坡一个音乐世家，从小接受音乐熏陶。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h4>2003年 · 发行首张专辑《乐行者》</h4>
+        <p>正式出道，并获得台湾金曲奖“最佳新人奖”。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h4>2004年 · 《第二天堂》爆红</h4>
+        <p>主打歌《江南》成为代表作，奠定华语乐坛地位。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h4>2006年 · 首登央视春晚</h4>
+        <p>演唱《一千年以后》，获得全国关注。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h4>2016年 · 推出纪录片《听·见林俊杰》</h4>
+        <p>展现音乐创作理念与幕后故事。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h4>2023年 · 出道20周年纪念专辑</h4>
+        <p>发行《重拾·快乐》，回顾音乐生涯。</p>
+      </div>
+    </div>
+     <section id="story">
+   
+   
+  
+</section>
+
+    </div>
+  </div>
+</section>
+
+<!-- 图片轮播 -->
+<section id="gallery">
+  <h2>帅照</h2>
+  <div class="carousel">
+    <div class="carousel-track" id="track">
+      <!-- 替换为你的图片 -->
+      <img src="file:///C:/Users/zhouz/Pictures/J2.jpg.jpg" />
+      <img src="file:///C:/Users/zhouz/Pictures/J3.jpg.jpg" />
+      <img src="file:///C:/Users/zhouz/Pictures/j7.jpg.jpg" />
+    </div>
+    <button class="prev" onclick="prevSlide()">‹</button>
+    <button class="next" onclick="nextSlide()">›</button>
+  </div>
+</section>
+
+<!-- 图片放大预览弹层 -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightboxImg" />
+</div>
+
+
+<!-- 🎬 视频切换播放器 -->
+<section id="video">
+  <h2>精彩视频</h2>
+
+  <div class="video-box">
+    <video id="switchVideo" controls></video>
+  </div>
+
+  <div style="text-align:center; margin-top:20px;">
+    <button class="play-btn" onclick="prevVideo()">⏮ 上一个</button>
+    <button class="play-btn" onclick="nextVideo()">⏭ 下一个</button>
+  </div>
+</section>
+
+
+<!-- 音乐播放器 -->
+<section id="music">
+<div class="player">
+
+  <!-- 🎵 音乐封面图 -->
+  <img class="cover" id="cover" src="" alt="封面">
+
+  <!-- 🎶 歌名 -->
+  <p id="songName">正在播放：--</p>
+
+  <!-- 🎛 控制按钮 -->
+  <div class="controls">
+    <button class="play-btn" onclick="prevSong()">⏮ 上一首</button>
+    <button class="play-btn" onclick="togglePlay()">▶ 播放</button>
+    <button class="play-btn" onclick="nextSong()">⏭ 下一首</button>
+  </div>
+
+  <!-- 音频 -->
+  <audio id="audio"></audio>
+</div>
+</section>
+
+
+<footer>
+  © 2026 林俊杰介绍
+</footer>
+
+<script>
+  /* ===== 轮播逻辑 ===== */
+  const track = document.getElementById('track');
+  const slides = track.children;
+  let index = 0;
+
+  function updateSlide() {
+    track.style.transform = `translateX(-${index * 100}%)`;
+  }
+
+  function nextSlide() {
+    index = (index + 1) % slides.length;
+    updateSlide();
+  }
+
+  function prevSlide() {
+    index = (index - 1 + slides.length) % slides.length;
+    updateSlide();
+  }
+
+  setInterval(nextSlide, 5000);
+
+  /* ===== 点击图片放大 ===== */
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+
+  Array.from(slides).forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightbox.style.display = 'flex';
+    });
+  });
+
+  function closeLightbox() {
+    lightbox.style.display = 'none';
+  }
+
+/* ===== 🎵 音乐播放器逻辑 ===== */
+const audio = document.getElementById("audio");
+const songName = document.getElementById("songName");
+const cover = document.getElementById("cover");
+const playBtn = document.querySelector(".controls .play-btn:nth-child(2)");
+
+const playlist = [
+  {
+    name: "林俊杰 - 明日坐标",
+    src: "file:///C:/Users/zhouz/Music/1629/mr.mp3.mp3",
+    cover: "file:///C:/Users/zhouz/Pictures/jiaqi.jpg"
+  },
+  {
+    name: "林俊杰 - 江南",
+    src: "file:///C:/Users/zhouz/Music/1629/jn.mp3.mp3",
+    cover: "file:///C:/Users/zhouz/Pictures/JN.jpg"
+  },
+  {
+    name: "林俊杰 - 修炼爱情",
+    src: "file:///C:/Users/zhouz/Music/1629/xlaq.mp3.qkdownloading",
+    cover: "file:///C:/Users/zhouz/Pictures/JJ2026.jpg"
+  },
+  {
+   name: "林俊杰 - 关键词",
+   src: "file:///C:/Users/zhouz/Music/1629/gjc.mp3.mp3",
+   cover: "file:///C:/Users/zhouz/Pictures/JJ2027.jpg"
+  }
+];
+
+let currentIndex = 0;
+
+/* 加载歌曲 */
+function loadSong(index) {
+  const song = playlist[index];
+  audio.src = song.src;
+  songName.innerText = "正在播放：" + song.name;
+  cover.src = song.cover;
+}
+
+/* 播放 / 暂停 */
+function togglePlay() {
+  if (audio.paused) {
+    audio.play();
+    playBtn.innerText = "⏸ 暂停";
+  } else {
+    audio.pause();
+    playBtn.innerText = "▶ 播放";
+  }
+}
+
+/* 下一首 */
+function nextSong() {
+  currentIndex = (currentIndex + 1) % playlist.length;
+  loadSong(currentIndex);
+  audio.play();
+  playBtn.innerText = "⏸ 暂停";
+}
+
+/* 上一首 */
+function prevSong() {
+  currentIndex = (currentIndex - 1 + playlist.length) % playlist.length;
+  loadSong(currentIndex);
+  audio.play();
+  playBtn.innerText = "⏸ 暂停";
+}
+
+/* 播完自动下一首 */
+audio.addEventListener("ended", nextSong);
+
+/* 初始化 */
+loadSong(currentIndex);
+
+/* ===== 🎬 视频切换逻辑 ===== */
+const switchVideo = document.getElementById("switchVideo");
+
+const videoList = [
+  "file:///C:/Users/zhouz/Videos/video.mp4.mp4",
+  "file:///C:/Users/zhouz/Videos/video2.mp4.mp4",
+  "file:///C:/Users/zhouz/Videos/video3.mp4.mp4",
+];
+
+let videoIndex = 0;
+
+/* 加载视频 */
+function loadVideo(index) {
+  switchVideo.src = videoList[index];
+  switchVideo.play();
+}
+
+/* 下一个视频 */
+function nextVideo() {
+  videoIndex = (videoIndex + 1) % videoList.length;
+  loadVideo(videoIndex);
+}
+
+/* 上一个视频 */
+function prevVideo() {
+  videoIndex = (videoIndex - 1 + videoList.length) % videoList.length;
+  loadVideo(videoIndex);
+}
+
+/* 播放完自动切换 */
+switchVideo.addEventListener("ended", nextVideo);
+
+/* 初始化 */
+loadVideo(videoIndex);
+
+
+</script>
+
+</body>
+</html>
